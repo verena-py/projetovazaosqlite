@@ -1,0 +1,107 @@
+=================SELECIONA POR DIA MES E ANO====================
+
+
+
+    stations = {'39980000': 2}
+    result = Timeseriesresults.objects.get(pk=stations['39980000'])
+    data = Timeseriesresultvalues.objects.filter(resultid=result).values_list('datavalue', 'valuedatetime')
+    dic = {'Date': [], 'Data': []}
+    for i in data:
+        dic['Date'].append(i[1])
+        dic['Data'].append(i[0])
+    df = pd.DataFrame(dic)
+
+    data = [dict(
+        x=df['Date'],
+        autobinx=False,
+        autobiny=True,
+        marker=dict(color='rgb(68, 68, 68)'),
+        name='date',
+        type='histogram',
+        xbins=dict(
+            end='2016-12-31 12:00',
+            size='M1',
+            start='1983-12-31 12:00'
+        )
+    )]
+
+    layout = dict(
+        paper_bgcolor='rgb(240, 240, 240)',
+        plot_bgcolor='rgb(240, 240, 240)',
+        title='<b>Shooting Incidents</b>',
+        xaxis=dict(
+            title='',
+            type='date'
+        ),
+        yaxis=dict(
+            title='Shootings Incidents',
+            type='linear'
+        ),
+        updatemenus=[dict(
+            x=0.1,
+            y=1.15,
+            xref='paper',
+            yref='paper',
+            yanchor='top',
+            active=1,
+            showactive=True,
+            buttons=[
+                dict(
+                    args=['xbins.size', 'D1'],
+                    label='Day',
+                    method='restyle',
+                ), dict(
+                    args=['xbins.size', 'M1'],
+                    label='Month',
+                    method='restyle',
+                ), dict(
+                    args=['xbins.size', 'M3'],
+                    label='Quater',
+                    method='restyle',
+                ), dict(
+                    args=['xbins.size', 'M6'],
+                    label='Half Year',
+                    method='restyle',
+                ), dict(
+                    args=['xbins.size', 'M12'],
+                    label='Year',
+                    method='restyle',
+                )]
+        )]
+    )
+
+    fig_dict = dict(data=data, layout=layout)
+
+    pio.show(fig_dict, validate=False, filename="odm2/dados.html")
+
+    ==============================================================
+                    GANTT
+
+    flow = Flow(station=['39970000', '39980000'], source='ANA')
+    fig, data = flow.gantt(title="Disponibilidade de dados da bacia hidrográfica do Rio Coruripe, AL")
+    pyo.plot(fig, filename="odm2/dados.html")
+
+=========================================================================
+
+                        MAPA
+ ====================================================================
+
+
+    fig = go.Figure(go.Scattermapbox(
+        lat=['-9.4437', '-10.0152'],
+        lon=['-36.3014','-36.1813'],
+        mode='markers',
+        marker=go.scattermapbox.Marker(
+            size=14
+        ),
+        text=['ESTAÇÃO'],
+    ))
+
+    fig.update_layout(mapbox_style="open-street-map")
+    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+
+    fig.write_html("odm2/dados.html")
+
+    https://plotly.com/python/mapbox-layers/
+    https://plotly.com/python/interactive-html-export/
+    https://plotly.com/python/scattermapbox/

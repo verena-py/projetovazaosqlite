@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'parciais/bootstrap.html'%}
+<body>
+     <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4"><p class="text-center">Projeto Vazão <i class="fas fa-cloud-rain"></i></p></h1>
+            <p class="lead"><p class="text-center"> Bem vindx ao projeto vazão, essa ferramenta é capaz de facilitar as leituras de dados da bacia hidrográfica do rio Coruripe.</p></p>
+            <hr class="my-4">
+            <p class="text-center">Projeto desenvolvido para o Programa Institucional de Bolsas de Iniciação Científica (PIBIC)
+                pela bolsista Verena Meirelles, com orientação do Prof. Dr. Chistopher Freire.</p>
+
+        </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <div class="card h-100">
+          <img src="{% static 'img/rio.png' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text"> Região Hidrográfica do Rio Coruripe </p>
+            <a href="#" class="btn btn-primary">Coruripe</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <img src="{% static 'img/grafico.png' %}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Ferramenta para análises da bacia.</p>
+            <a href="#" class="btn btn-primary">Análises</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100">
+          <img src="{% static 'img/mapainterativo.png' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <p class="card-text">Mapa de localização dos pontos</p>
+            <a href="#" class="btn btn-primary">Mapa interativo</a>
+        </div>
+      </div>
+      </div>
+
+
+</div>
+
+</body>
+
+</html>
