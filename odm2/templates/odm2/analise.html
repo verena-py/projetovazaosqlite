@@ -1,0 +1,25 @@
+{% include 'parciais/bootstrap.html' %}
+
+{% block conteudo %}
+
+<body>
+
+     <div class="container" >
+        <div class="jumbotron" >
+            <h1 class="display-4"><p class="text-center">Análise dos dados da bacia</p></h1>
+            <p class="lead"><p class="text-center"> Após o tratamento de dados, selecione a melhor opção para análise que você deseja:</p></p>
+        </div>
+
+        <div class="list-group">
+          <a href='{% url 'gantt' %}' class="list-group-item list-group-item-action active" aria-current="true">Disponibilidade de dados (Gráfico Gantt) </a>
+          <a href='{% url 'hidro' %}' class="list-group-item list-group-item-action"> Hidrograma das estações</a>
+          <a href='{% url 'disp' %}' class="list-group-item list-group-item-action active"> Estatística - Gráfico de Dispersão </a>
+          <a href='{% url 'histo' %}' class="list-group-item list-group-item-action"> Estatística - Histograma </a>
+          <a href='{% url 'box' %}' class="list-group-item list-group-item-action active"> Estatística - BoxPlot</a>
+        </div>
+</body>
+
+</html>
+
+
+{% endblock %}

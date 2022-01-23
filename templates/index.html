@@ -8,10 +8,10 @@
      <div class="container">
         <div class="jumbotron">
             <h1 class="display-4"><p class="text-center">Projeto Vazão <i class="fas fa-cloud-rain"></i></p></h1>
-            <p class="lead"><p class="text-center"> Bem vindx ao projeto vazão, essa ferramenta é capaz de facilitar as leituras de dados da bacia hidrográfica do rio Coruripe.</p></p>
+            <p class="lead"><p class="text-center"> Essa ferramenta é capaz de facilitar a análise dos dados da Bacia Hidrográfica do Rio Coruripe, em AL.</p></p>
             <hr class="my-4">
             <p class="text-center">Projeto desenvolvido para o Programa Institucional de Bolsas de Iniciação Científica (PIBIC)
-                pela bolsista Verena Meirelles, com orientação do Prof. Dr. Chistopher Freire.</p>
+                pela bolsista Verena Meirelles, com orientação do Prof. Dr. Chistopher Freire. O website tem como objetivo ser fácil e intuitivo, boa experiência! </p>
 
         </div>
 
@@ -30,7 +30,7 @@
           <img src="{% static 'img/grafico.png' %}" class="card-img-top" alt="...">
           <div class="card-body">
             <p class="card-text">Ferramenta para análises da bacia.</p>
-            <a href="#" class="btn btn-primary">Análises</a>
+            <a href='{% url 'analise' %}' class="btn btn-primary">Análises</a>
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@
           <img src="{% static 'img/mapainterativo.png' %}" class="card-img-top" alt="...">
         <div class="card-body">
             <p class="card-text">Mapa de localização dos pontos</p>
-            <a href="#" class="btn btn-primary">Mapa interativo</a>
+            <a href='{% url 'mapa' %}' class="btn btn-primary">Mapa interativo</a>
         </div>
       </div>
       </div>

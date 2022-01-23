@@ -7,10 +7,13 @@ urlpatterns = [
     path('',views.paginainicial, name='paginainicial'),
     path('projeto/', views.projeto, name='projeto'),
     path('dados/', views.dados, name='dados'),
-    #path('dados/', views.dados, name='dados'),
-    #path('gantt/', views.gantt, name='gantt'),
-    #path('piacabucu/', views.piacabucu, name='piacabucu'),
-    #path('exportar/', views.exportar, name='exportar'),
-    #path('norte/', views.norte, name='norte')
+    path('mapa/', views.mapa, name='mapa'),
+    path('analise/', views.analise, name='analise'),
+    path('gantt/', views.gantt, name='gantt'),
+    path('hidro/', views.hidro, name='hidro'),
+    path('disp/', views.disp, name='disp'),
+    path('histo/', views.histo, name='histo'),
+    path('box/', views.box, name='box'),
+
 
 ]

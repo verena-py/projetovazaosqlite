@@ -80,7 +80,51 @@
     flow = Flow(station=['39970000', '39980000'], source='ANA')
     fig, data = flow.gantt(title="Disponibilidade de dados da bacia hidrográfica do Rio Coruripe, AL")
     pyo.plot(fig, filename="odm2/dados.html")
+========================================================================
+LINHAS
+=================================================
 
+    stations = {'39970000': 1}
+    result = Timeseriesresults.objects.get(pk=stations['39970000'])
+    data = Timeseriesresultvalues.objects.filter(resultid=result).values_list('datavalue', 'valuedatetime')
+    dic = {'Data': [], '39970000': []}
+    for i in data:
+        dic['Data'].append(i[1])
+        dic['39970000'].append(i[0])
+    df = pd.DataFrame(dic)
+
+
+    stations = {'39980000': 2}
+    result = Timeseriesresults.objects.get(pk=stations['39980000'])
+    data = Timeseriesresultvalues.objects.filter(resultid=result).values_list('datavalue', 'valuedatetime')
+    dic = {'Data': [], '39980000': []}
+    for i in data:
+        dic['Data'].append(i[1])
+        dic['39980000'].append(i[0])
+    df2 = pd.DataFrame(dic)
+
+    data_frames = [df, df2]
+    df_merged = reduce(lambda left, right: pd.merge(left, right, on=['Data'],
+                                                        how='outer'), data_frames)
+    df_merged = df_merged.sort_values(by='Data')
+    df_merged = df_merged.reset_index(drop=True)
+
+    trace1 = go.Scatter(x=df_merged['Data'],
+                            y=df_merged['39970000'],
+                            mode='lines',
+                            name='39970000')
+    trace2 = go.Scatter(x=df_merged['Data'],
+                            y=df_merged['39980000'],
+                            mode='lines',
+                            name='39980000')
+    grafico = [trace1, trace2]
+
+    layout = go.Layout(title='Hidrograma Rio Coruripe',
+                           yaxis={'title': 'Dados (mm)'},
+                           xaxis={'title': 'Tempo'})
+    fig = go.Figure(data=grafico, layout=layout)
+
+    pyo.plot(fig, filename="odm2/dados.html")
 =========================================================================
 
                         MAPA
@@ -105,3 +149,27 @@
     https://plotly.com/python/mapbox-layers/
     https://plotly.com/python/interactive-html-export/
     https://plotly.com/python/scattermapbox/
+
+============================================================
+'''def plotly(request):
+
+    stations = {'1036050':1}
+    result = Timeseriesresults.objects.get(pk=stations['1036050'])
+    data = Timeseriesresultvalues.objects.filter(resultid=result).values_list('datavalue','valuedatetime')
+    dic = {'Date': [], 'Data': []}
+    for i in data:
+        dic['Date'].append(i[1])
+        dic['Data'].append(i[0])
+    df = pd.DataFrame(dic)
+
+    return render(request, 'odm2/base.html', context)'''
+
+=======================================================
+    dfs = [df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11]
+    df_merged = reduce(lambda left, right: pd.merge(left, right, on=['Date'],
+                                                    how='outer'), dfs)
+
+    df_merged = df_merged.sort_values(by='Date')
+    df_merged = df_merged.reset_index(drop=True)
+    df_merged['Date'] = df_merged['Date'].apply(lambda a: pd.to_datetime(a).date())
+    df_merged.to_excel("medicoes_baciapiauialagoas.xlsx")
